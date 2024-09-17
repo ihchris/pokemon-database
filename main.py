@@ -81,8 +81,17 @@ class PokemonDatabase:
                 })
 
 # Creating the database
+import os
+
 file_path = 'pokemon_data.csv'
 poke_db = PokemonDatabase(file_path)
+
+# Check if the file exists, if not create an empty file with headers
+if not os.path.exists(file_path):
+    with open(file_path, mode='w', newline='') as csvfile:
+        fieldnames = ['Name', 'Type 1', 'Type 2', 'Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed', 'Generation', 'Legendary']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
 
 # Loading Pokémon data from CSV file
 poke_db.load_from_csv()
